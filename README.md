@@ -6,7 +6,7 @@ Faster data version controller
 pip install git+https://github.com/AmirHosseinCV/FasterDVC.git
 ```
 
-##usage:
+## usage:
 note: replace dvc with `python -m dvc` if it didn't work
 ```
 dvc init
