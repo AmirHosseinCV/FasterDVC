@@ -7,7 +7,8 @@ import json
 _dvcPath = ".dvc"
 _backupPath = os.path.join(_dvcPath, "files")
 versionsPath = os.path.join(_dvcPath, "versions")
-_ignores = ['.dvc', '.idea', '.git']
+custom_ignores = open("dvc.ignore", "r").read().replace("\r", "").split("\n")
+_ignores = ['.dvc', '.idea', '.git'] + [x for x in custom_ignores if x != ""]
 version = len(glob.glob(os.path.join(versionsPath, "*.txt")))
 __version__ = "0.3.0"
 
@@ -78,10 +79,17 @@ def restore(vn):
 
 
 def check_ignore(f):
+    f = os.path.normpath(f)
     f = remove_local_sign(f)
     for i in _ignores:
-        if f.startswith(i):
-            return True
+        i = remove_local_sign(i)
+        i = os.path.normpath(i)
+        if os.path.isdir(i):
+            if f.startswith(i + os.path.sep) or f == i:
+                return True
+        elif os.path.isfile(i):
+            if f == i:
+                return True
     return False
 
 
