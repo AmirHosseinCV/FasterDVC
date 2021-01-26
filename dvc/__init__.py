@@ -7,7 +7,10 @@ import json
 _dvcPath = ".dvc"
 _backupPath = os.path.join(_dvcPath, "files")
 versionsPath = os.path.join(_dvcPath, "versions")
-custom_ignores = open("dvc.ignore", "r").read().replace("\r", "").split("\n")
+try:
+    custom_ignores = open("dvc.ignore", "r").read().replace("\r", "").split("\n")
+except FileNotFoundError:
+    custom_ignores = []
 _ignores = ['.dvc', '.idea', '.git'] + [x for x in custom_ignores if x != ""]
 version = len(glob.glob(os.path.join(versionsPath, "*.txt")))
 __version__ = "0.3.0"
