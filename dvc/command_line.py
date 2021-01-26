@@ -7,7 +7,11 @@ import dvc
 
 def main():
     if sys.argv[1] == "commit":
-        dvc.commit(sys.argv[2])
+        try:
+            note = sys.argv[2]
+        except IndexError:
+            note = input("note:\n")
+        dvc.commit(note)
     elif sys.argv[1] == "restore":
         dvc.restore(int(sys.argv[2]))
     elif sys.argv[1] == "ls":

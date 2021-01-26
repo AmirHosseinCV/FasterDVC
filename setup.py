@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='dvc',
-    version='0.5.0',
+    version='0.6.0',
     entry_points={
         'console_scripts': ['dvc=dvc.command_line:main'],
     },
